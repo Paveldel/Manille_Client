@@ -1,26 +1,71 @@
-main {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    background-image: url("../media/bg.png");
-    background-size: 10rem;
-    animation: infinite 5s scroll forwards linear;
+.main-menu {
+    color: #fff;
+    font-family: JqkasWild, serif;
 }
 
-.vignette {
-    width: 100%;
-    height: 100%;
-    background: #00000000 0 0 no-repeat;
-    background: radial-gradient(circle, transparent 15%, black 115%);
-    background: -webkit-radial-gradient(center, circle, transparent 15%, #000000 115%);
-    background: radial-gradient(circle, transparent 15%, #000000 115%);
+#logo {
+    margin-top: 5%;
+    width: 33rem;
 }
 
-@keyframes scroll {
-  from {
-    background-position: 0 22%;
-  }
-  to {
-    background-position: 10rem 22%;
-  }
+.play-options {
+    padding: 2rem;
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    align-items: baseline;
+    width: 50%;
+    margin: auto;
+}
+
+.option {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    p {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    label {
+        font-size: 2rem;
+        width: 80%;
+        text-align: left;
+    }
+
+    input {
+        width: 80%;
+        height: 3rem;
+        border-radius: 1.5rem;
+        margin-bottom: 1rem;
+        padding-left: 0.75rem;
+        background: #eeeeeebb;
+        font-size:1.5rem;
+        font-family: JqkasWild, serif;
+        
+    }
+
+    button, input[type=submit] {
+        width: 8rem;
+        height: 4rem;
+        font-size: 1.5rem;
+        background-color: #d11;
+        border: none;
+        border-bottom: solid darkred 0.125rem;
+        border-radius: 1rem;
+        cursor: pointer;
+        box-shadow: 2px 2px 4px #11111155;
+        font-family: JqkasWild, serif;
+
+        &:hover {
+            background-color: #f00;
+        }
+
+        &:active {
+            background-color: #b00;
+        }
+    }
 }

@@ -4,13 +4,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manille</title>
     <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/font.css">
+    <link rel="stylesheet" href="assets/css/background.css">
     <link rel="stylesheet" href="assets/css/index.css">
 
 </head>
 <body>
-    <main>
+    <main class="background">
         <div class="vignette">
-            
+            <div class="main-menu">
+                <img src="/assets/media/logo.png" alt="logo" id="logo">
+                <div class="play-options">
+                    <form action="/" class="option">
+                        <p>Create Game</p>
+                        <label for="create-username">Username</label>
+                        <input type="text" required placeholder="John Doe" id="create-username">
+                        <Button id="create-game">Play</Button>
+                    </form>
+                    <form action="/" class="option">
+                        <p>Join Game</p>
+                        <label for="join-username">Username</label>
+                        <input type="text" required placeholder="John Doe" id="join-username">
+                        <label for="game-id">Game Id</label>
+                        <input type="text" required placeholder="AB1CD2" id="game-id">
+                        <input type="submit" value="Join">
+                    </form>
+                </div>
+            </div>
         </div>
     </main>
 </body>
