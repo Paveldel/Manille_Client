@@ -1,6 +1,7 @@
 .main-menu {
     color: #fff;
     font-family: JqkasWild, serif;
+    overflow-y: auto;
 }
 
 #logo {
