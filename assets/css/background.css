@@ -15,9 +15,9 @@ html, body {
     width: 100%;
     height: 100%;
     background: #00000000 0 0 no-repeat;
-    background: radial-gradient(circle, #00000033 15%, black 115%);
-    background: -webkit-radial-gradient(center, circle, #00000033 15%, #000000 115%);
-    background: radial-gradient(circle, #00000033 15%, #000000 115%);
+    background: radial-gradient(circle, #00000055 15%, black 115%);
+    background: -webkit-radial-gradient(center, circle, #00000055 15%, #000000 115%);
+    background: radial-gradient(circle, #00000055 15%, #000000 115%);
     display: flex;
     flex-direction: column;
 }
@@ -27,6 +27,6 @@ html, body {
     background-position: 0 22%;
   }
   to {
-    background-position: 10rem 22%;
+    background-position: 10rem calc(22% + 10rem);
   }
 }
