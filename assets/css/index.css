@@ -10,7 +10,7 @@
 }
 
 .play-options {
-    padding: 2rem;
+    padding: 1.5rem;
     display: flex;
     gap: 3rem;
     justify-content: center;
@@ -32,7 +32,7 @@
     }
 
     label {
-        font-size: 2rem;
+        font-size: 1.5rem;
         width: 80%;
         text-align: left;
     }
@@ -46,12 +46,12 @@
         background: #eeeeeebb;
         font-size:1.5rem;
         font-family: JqkasWild, serif;
-        
+        border: black solid 0.125rem;
     }
 
-    button, input[type=submit] {
-        width: 8rem;
-        height: 4rem;
+    input[type=submit] {
+        width: 6rem;
+        height: 3rem;
         font-size: 1.5rem;
         background-color: #d11;
         border: none;

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="assets/css/font.css">
     <link rel="stylesheet" href="assets/css/background.css">
     <link rel="stylesheet" href="assets/css/index.css">
-
+    <script src="/assets/js/index.js" type="module"></script>
 </head>
 <body>
     <main class="background">
@@ -15,13 +15,13 @@
             <div class="main-menu">
                 <img src="/assets/media/logo.png" alt="logo" id="logo">
                 <div class="play-options">
-                    <form action="/" class="option">
+                    <form action="/" class="option" id="create-game">
                         <p>Create Game</p>
                         <label for="create-username">Username</label>
                         <input type="text" required placeholder="John Doe" id="create-username">
-                        <Button id="create-game">Play</Button>
+                        <input type="submit" value="Play">
                     </form>
-                    <form action="/" class="option">
+                    <form action="/" class="option"id="join-game" >
                         <p>Join Game</p>
                         <label for="join-username">Username</label>
                         <input type="text" required placeholder="John Doe" id="join-username">
