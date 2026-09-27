@@ -19,8 +19,15 @@ async function createGame(e) {
             body: JSON.stringify({username})
         });
 
-        if (res.status != 201) setError();
+        console.log(res.status !== 201);
+        
+        if (res.status !== 201) setError();
+
+        const { gameId, playerId } = await res.json();
+
+        NavigateToGame(gameId, playerId);
     } catch (error) {
+        console.log(error);
         setError();
     }
 }
@@ -39,7 +46,11 @@ async function joinGame(e) {
             body: JSON.stringify({username})
         });
 
-        if (res.status != 201) setError();
+        if (res.status !== 201) setError();
+
+        const { playerId } = await res.json();
+
+        NavigateToGame(gameId, playerId);
     } catch (error) {
         setError();
     }
@@ -51,4 +62,10 @@ function setError() {
 
 function resetError() {
     document.querySelector(".error").innerText = "Could not connect to server";
+}
+
+function NavigateToGame(gameId, playerId) {
+    localStorage.setItem("gameId", gameId);
+    localStorage.setItem("playerId", playerId);
+    window.location.href = "/game";
 }
