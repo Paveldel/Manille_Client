@@ -1,10 +1,7 @@
-import { SERVER } from "./config.js"; 
+import { SERVER, postHeaders } from "./config.js"; 
 
 document.querySelector("#create-game").addEventListener('submit', createGame);
 document.querySelector("#join-game").addEventListener('submit', joinGame);
-
-const postHeaders = new Headers();
-postHeaders.append("Content-Type", "text/plain");
 
 async function createGame(e) {
     e.preventDefault();
