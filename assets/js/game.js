@@ -3,11 +3,12 @@ import { SERVER } from "./config.js";
 const suitOrder = ['♠', '♥', '♣', '♦'];
 const rankOrder = ["10", "A", "K", "Q", "J", "9", "8", "7"];
 
-const POLL_DELAY = 10000;
+const POLL_DELAY = 1000;
 
 const $waitingText = document.querySelector(".waiting");
 const $hand = document.querySelector(".hand");
 const $trick = document.querySelector(".trick");
+const $next = document.querySelector(".next");
 
 const gameId = localStorage.getItem("gameId");
 const playerId = localStorage.getItem("playerId");
@@ -16,6 +17,7 @@ $waitingText.querySelector("div ~ div").innerText = `Game ID: ${gameId}`;
 
 document.querySelector(".trump-options").addEventListener('click', selectTrump);
 $hand.addEventListener('click', playCard);
+$next.addEventListener('click', nextTrick);
 
 function authorizedHeaders(playerId) {
     const headers = new Headers();
@@ -42,9 +44,18 @@ async function gameLoop() {
         trump(state);
         setHand(state);
         showTrick(state);
+        next(state);
     }
 
     setTimeout(gameLoop, POLL_DELAY);
+}
+
+function next(state) {
+    if (state.gameState === 3) { // trick ended
+        $next.classList.remove('hidden');
+    } else {
+        $next.classList.remove('add');
+    }
 }
 
 function showTrick(state) {
@@ -53,7 +64,7 @@ function showTrick(state) {
     state.players.forEach((player, i) => {
         $trick.insertAdjacentHTML('beforeend', `<div>
                 ${createCard(state.trick[(i + offset) % 4], 0)}
-                <p class="${state.players[state.nextPlayer] === player ? "next" : ""}">${player}</p>
+                <p class="${state.players[state.nextPlayer] === player ? "next-to-play" : ""}">${player}</p>
             </div>`)
     });
 }
@@ -136,13 +147,23 @@ function sortCards(cards) {
 
 async function playCard(e) {
     const headers = authorizedHeaders(playerId);
-    
-    console.log(e.target.dataset.id, e.target.closest('.card'));
 
     const res = await fetch(`${SERVER}/games/${gameId}`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify({"card": e.target.closest('.card').dataset.id})
+    });
+
+    return await res.json();
+}
+
+async function nextTrick(e) {
+    const headers = authorizedHeaders(playerId);
+
+    const res = await fetch(`${SERVER}/games/${gameId}/trick`, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({})
     });
 
     return await res.json();

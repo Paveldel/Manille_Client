@@ -108,9 +108,33 @@ div.card {
         font-size: 1.5rem;
         margin-top: 0.5rem;
 
-        &.next {
+        &.next-to-play {
             color: yellow;
         }
+    }
+}
+
+.next {
+    width: 6rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    background-color: #d11;
+    border: none;
+    border-bottom: solid darkred 0.125rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px #11111155;
+    font-family: JqkasWild, serif;
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+
+    &:hover {
+        background-color: #f00;
+    }
+
+    &:active {
+        background-color: #b00;
     }
 }
 
