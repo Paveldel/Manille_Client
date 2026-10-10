@@ -59,6 +59,11 @@ function next(state) {
 }
 
 function showTrick(state) {
+    if (state.gameState > 1) {
+        $trick.classList.remove('hidden');
+    } else {
+        $trick.classList.add('hidden')
+    }
     $trick.innerHTML = "";
     const offset = state.trick.length - state.nextPlayer + 4;
     state.players.forEach((player, i) => {
@@ -93,7 +98,7 @@ function trump(state) {
     const $selector = document.querySelector(".select-trump");
     const $wait = document.querySelector(".wait-for-trump");
     if (state.gameState === 1) { // select trump
-        if (yourTurn(state)) {
+        if (state.players[state.dealerIndex] === state.localPlayer) {
             $selector.classList.remove("hidden");
         } else {
             $wait.classList.remove("hidden");
@@ -110,10 +115,6 @@ function checkGameReady(state) {
     }
 
     return (state.gameState !== 0);
-}
-
-function yourTurn(state) {
-    return state.players[state.nextPlayer] === state.localPlayer;
 }
 
 async function selectTrump(e) {
