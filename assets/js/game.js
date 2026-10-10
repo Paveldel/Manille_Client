@@ -15,6 +15,7 @@ const playerId = localStorage.getItem("playerId");
 $waitingText.querySelector("div ~ div").innerText = `Game ID: ${gameId}`;
 
 document.querySelector(".trump-options").addEventListener('click', selectTrump);
+$hand.addEventListener('click', playCard);
 
 function authorizedHeaders(playerId) {
     const headers = new Headers();
@@ -51,18 +52,18 @@ function showTrick(state) {
     const offset = state.trick.length - state.nextPlayer + 4;
     state.players.forEach((player, i) => {
         $trick.insertAdjacentHTML('beforeend', `<div>
-                ${createCard(state.trick[(i + offset) % 4])}
+                ${createCard(state.trick[(i + offset) % 4], 0)}
                 <p class="${state.players[state.nextPlayer] === player ? "next" : ""}">${player}</p>
             </div>`)
     });
 }
 
-function createCard(card) {
+function createCard(card, id) {
     if (!card) return `<div class="card empty">
                 <span>/</span>
                 <span>/</span>
             </div>`;
-    return `<div class="card ${["♥", "♦"].includes(card._suit) ? "red" : "black"}">
+    return `<div data-id="${id}" class="card ${["♥", "♦"].includes(card._suit) ? "red" : "black"}">
                 <span>${card._rank}</span>
                 <span>${card._suit}</span>
             </div>`;
@@ -72,7 +73,8 @@ function setHand(state) {
     const hand = sortCards(state.hand);
     $hand.innerHTML = "";
     hand.forEach(card => {
-        $hand.insertAdjacentHTML("beforeend", createCard(card));
+        const id = state.hand.indexOf(card);
+        $hand.insertAdjacentHTML("beforeend", createCard(card, id));
     });
 }
 
@@ -121,7 +123,7 @@ async function selectTrump(e) {
 }
 
 function sortCards(cards) {
-  return cards.sort((cardA, cardB) => {
+  return [...cards].sort((cardA, cardB) => {
     const suitDiff = suitOrder.indexOf(cardA._suit) - suitOrder.indexOf(cardB._suit);
     
     if (suitDiff !== 0) {
@@ -130,6 +132,20 @@ function sortCards(cards) {
     
     return rankOrder.indexOf(cardA._rank) - rankOrder.indexOf(cardB._rank);
   });
+}
+
+async function playCard(e) {
+    const headers = authorizedHeaders(playerId);
+    
+    console.log(e.target.dataset.id, e.target.closest('.card'));
+
+    const res = await fetch(`${SERVER}/games/${gameId}`, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({"card": e.target.closest('.card').dataset.id})
+    });
+
+    return await res.json();
 }
 
 gameLoop();
