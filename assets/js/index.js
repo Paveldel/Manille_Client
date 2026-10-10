@@ -3,6 +3,11 @@ import { SERVER, postHeaders } from "./config.js";
 document.querySelector("#create-game").addEventListener('submit', createGame);
 document.querySelector("#join-game").addEventListener('submit', joinGame);
 
+const gameId = localStorage.getItem("gameId");
+const playerId = localStorage.getItem("playerId");
+
+if (gameId && playerId) NavigateToGame(gameId, playerId);
+
 async function createGame(e) {
     e.preventDefault();
     resetError();
