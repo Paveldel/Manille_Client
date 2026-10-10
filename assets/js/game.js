@@ -1,8 +1,12 @@
 import { SERVER } from "./config.js"; 
 
+const suitOrder = ['♠', '♥', '♣', '♦'];
+const rankOrder = ["10", "A", "K", "Q", "J", "9", "8", "7"];
+
 const POLL_DELAY = 10000;
 
 const $waitingText = document.querySelector(".waiting");
+const $hand = document.querySelector(".hand");
 
 const gameId = localStorage.getItem("gameId");
 const playerId = localStorage.getItem("playerId");
@@ -33,10 +37,39 @@ async function gameLoop() {
     console.log(state);
 
     if (checkGameReady(state)) {
-        console.log("ready");
+        trump(state);
+        setHand(state);
     }
 
     setTimeout(gameLoop, POLL_DELAY);
+}
+
+function setHand(state) {
+    const hand = sortCards(state.hand);
+    $hand.innerHTML = "";
+    hand.forEach(card => {
+        $hand.insertAdjacentHTML("beforeend", `
+            <div class="card ${["♥", "♦"].includes(card._suit) ? "red" : "black"}">
+                <span>${card._rank}</span>
+                <span>${card._suit}</span>
+            </div>    
+        `)
+    });
+}
+
+function trump(state) {
+    const $selector = document.querySelector(".select-trump");
+    const $wait = document.querySelector(".wait-for-trump");
+    if (state.gameState === 1) { // select trump
+        if (yourTurn(state)) {
+            $selector.classList.remove("hidden");
+        } else {
+            $wait.classList.remove("hidden");
+        }
+    } else {
+        $selector.classList.add("hidden");
+        $wait.classList.add("hidden");
+    }
 }
 
 function checkGameReady(state) {
@@ -45,6 +78,10 @@ function checkGameReady(state) {
     }
 
     return (state.gameState !== 0);
+}
+
+function yourTurn(state) {
+    return state.players[state.nextPlayer] === state.localPlayer;
 }
 
 async function selectTrump(e) {
@@ -60,7 +97,20 @@ async function selectTrump(e) {
     });
 
     return await res.json();
+    document.querySelector("select-trump").classList.add("hidden");
     //TODO handle error
+}
+
+function sortCards(cards) {
+  return cards.sort((cardA, cardB) => {
+    const suitDiff = suitOrder.indexOf(cardA._suit) - suitOrder.indexOf(cardB._suit);
+    
+    if (suitDiff !== 0) {
+      return suitDiff;
+    }
+    
+    return rankOrder.indexOf(cardA._rank) - rankOrder.indexOf(cardB._rank);
+  });
 }
 
 gameLoop();

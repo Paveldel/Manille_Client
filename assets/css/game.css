@@ -1,7 +1,3 @@
-.hidden {
-    display: none;
-}
-
 .waiting {
     font-size: 2rem;
     color: white;
@@ -12,6 +8,17 @@
     align-items: center;
     flex-direction: column;
     gap: 1rem;
+}
+
+.wait-for-trump {
+    font-size: 2rem;
+    color: white;
+    font-family: JqkasWild, serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .select-trump {
@@ -26,6 +33,7 @@
     .trump-options span {
         user-select: none;
         font-size: 4rem;
+        cursor: pointer;
 
         &:hover {
             color: darkgray;   
@@ -35,4 +43,48 @@
             color: gray;
         }
     }
+}
+
+.hand {
+    font-family: JqkasWild, serif;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    flex-direction: row;
+
+    div.card {
+        user-select: none;
+        cursor: pointer;
+        padding: 1rem;
+        background: white;
+        margin: 0.25rem;
+        font-size: 2rem;
+        border-radius: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        width: 2.5rem;
+
+        &:hover {
+            background-color: darkgray;   
+        }
+
+        &:active {
+            background-color: gray;
+        }
+
+        &.red {
+            color: #dd2222;
+        }
+
+        &.black {
+            color: black;
+        }
+    }
+}
+
+
+.hidden {
+    display: none;
 }
