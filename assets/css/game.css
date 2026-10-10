@@ -138,6 +138,16 @@ div.card {
     }
 }
 
+.player-info {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: white;
+    font-family: JqkasWild, serif;
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+}
 
 .hidden {
     display: none;

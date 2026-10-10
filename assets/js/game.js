@@ -9,6 +9,7 @@ const $waitingText = document.querySelector(".waiting");
 const $hand = document.querySelector(".hand");
 const $trick = document.querySelector(".trick");
 const $next = document.querySelector(".next");
+const $playerInfo = document.querySelector(".player-info");
 
 const gameId = localStorage.getItem("gameId");
 const playerId = localStorage.getItem("playerId");
@@ -45,6 +46,7 @@ async function gameLoop() {
         setHand(state);
         showTrick(state);
         next(state);
+        playerInfo(state);
     }
 
     setTimeout(gameLoop, POLL_DELAY);
@@ -54,7 +56,7 @@ function next(state) {
     if (state.gameState === 3) { // trick ended
         $next.classList.remove('hidden');
     } else {
-        $next.classList.remove('add');
+        $next.classList.add('hidden');
     }
 }
 
@@ -168,6 +170,10 @@ async function nextTrick(e) {
     });
 
     return await res.json();
+}
+
+function playerInfo(state) {
+    $playerInfo.innerHTML = "You are playing as " + state.localPlayer;   
 }
 
 gameLoop();
