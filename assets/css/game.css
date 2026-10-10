@@ -1,4 +1,6 @@
-
+.hidden {
+    display: none;
+}
 
 .waiting {
     font-size: 2rem;
@@ -10,4 +12,27 @@
     align-items: center;
     flex-direction: column;
     gap: 1rem;
+}
+
+.select-trump {
+    font-size: 2rem;
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+    .trump-options span {
+        user-select: none;
+        font-size: 4rem;
+
+        &:hover {
+            color: darkgray;   
+        }
+
+        &:active {
+            color: gray;
+        }
+    }
 }
