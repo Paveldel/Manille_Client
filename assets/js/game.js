@@ -7,6 +7,7 @@ const POLL_DELAY = 10000;
 
 const $waitingText = document.querySelector(".waiting");
 const $hand = document.querySelector(".hand");
+const $trick = document.querySelector(".trick");
 
 const gameId = localStorage.getItem("gameId");
 const playerId = localStorage.getItem("playerId");
@@ -39,21 +40,39 @@ async function gameLoop() {
     if (checkGameReady(state)) {
         trump(state);
         setHand(state);
+        showTrick(state);
     }
 
     setTimeout(gameLoop, POLL_DELAY);
+}
+
+function showTrick(state) {
+    $trick.innerHTML = "";
+    const offset = state.trick.length - state.nextPlayer + 4;
+    state.players.forEach((player, i) => {
+        $trick.insertAdjacentHTML('beforeend', `<div>
+                ${createCard(state.trick[(i + offset) % 4])}
+                <p class="${state.players[state.nextPlayer] === player ? "next" : ""}">${player}</p>
+            </div>`)
+    });
+}
+
+function createCard(card) {
+    if (!card) return `<div class="card empty">
+                <span>/</span>
+                <span>/</span>
+            </div>`;
+    return `<div class="card ${["♥", "♦"].includes(card._suit) ? "red" : "black"}">
+                <span>${card._rank}</span>
+                <span>${card._suit}</span>
+            </div>`;
 }
 
 function setHand(state) {
     const hand = sortCards(state.hand);
     $hand.innerHTML = "";
     hand.forEach(card => {
-        $hand.insertAdjacentHTML("beforeend", `
-            <div class="card ${["♥", "♦"].includes(card._suit) ? "red" : "black"}">
-                <span>${card._rank}</span>
-                <span>${card._suit}</span>
-            </div>    
-        `)
+        $hand.insertAdjacentHTML("beforeend", createCard(card));
     });
 }
 
@@ -96,8 +115,8 @@ async function selectTrump(e) {
         body: JSON.stringify({"suit": trump})
     });
 
-    return await res.json();
     document.querySelector("select-trump").classList.add("hidden");
+    return await res.json();
     //TODO handle error
 }
 
