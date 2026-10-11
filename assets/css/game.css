@@ -157,6 +157,19 @@ div.card {
     font-size: 1.5rem;
 }
 
+.trump-display {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    color: white;
+    font-family: JqkasWild, serif;
+    vertical-align: middle;
+
+    span {
+        font-size: 1.5rem;
+    }
+}
+
 .hidden {
     display: none;
 }

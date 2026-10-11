@@ -10,6 +10,8 @@ const $hand = document.querySelector(".hand");
 const $trick = document.querySelector(".trick");
 const $next = document.querySelector(".next");
 const $playerInfo = document.querySelector(".player-info");
+const $trumpDisplay = document.querySelector(".trump-display");
+const $scoreDisplay = document.querySelector(".score-display");
 
 const gameId = localStorage.getItem("gameId");
 const playerId = localStorage.getItem("playerId");
@@ -110,6 +112,7 @@ function trump(state) {
         $selector.classList.add("hidden");
         $wait.classList.add("hidden");
     }
+    $trumpDisplay.innerHTML = `Current trump: <span class="trump-suit">${state.trump}</span>`;
 }
 
 function checkGameReady(state) {
