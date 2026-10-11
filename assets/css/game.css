@@ -170,6 +170,15 @@ div.card {
     }
 }
 
+.score-display {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: white;
+    font-family: JqkasWild, serif;
+    vertical-align: middle;
+}
+
 .hidden {
     display: none;
 }

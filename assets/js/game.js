@@ -50,6 +50,7 @@ async function gameLoop() {
         showTrick(state);
         next(state);
         playerInfo(state);
+        showScore(state);
     }
 
     setTimeout(gameLoop, POLL_DELAY);
@@ -111,8 +112,8 @@ function trump(state) {
     } else {
         $selector.classList.add("hidden");
         $wait.classList.add("hidden");
+        $trumpDisplay.innerHTML = `Current trump: <span class="trump-suit">${state.trump}</span>`;
     }
-    $trumpDisplay.innerHTML = `Current trump: <span class="trump-suit">${state.trump}</span>`;
 }
 
 function checkGameReady(state) {
@@ -184,6 +185,14 @@ function leave() {
     localStorage.removeItem("gameId");
     localStorage.removeItem("playerId");
     window.location.href = "/";
+}
+
+function showScore(state) {
+    $scoreDisplay.innerHTML = `<div>
+        Your team score: ${(state.indexOfPlayer % 2) ? state.secondTeamPoints : state.firstTeamPoints }
+    </div><div>
+        Other team score: ${(state.indexOfPlayer % 2) ? state.firstTeamPoints : state.secondTeamPoints }
+    </div>`;
 }
 
 gameLoop();
