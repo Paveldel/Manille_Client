@@ -179,6 +179,16 @@ div.card {
     vertical-align: middle;
 }
 
+.ending {
+    position: absolute;
+    top: calc(50% + 5rem);
+    right: 50%;
+    transform: translate(50%, 0);
+    color: white;
+    font-family: JqkasWild, serif;
+    font-size: 3rem;
+}
+
 .hidden {
     display: none;
 }

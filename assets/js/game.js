@@ -3,7 +3,7 @@ import { SERVER } from "./config.js";
 const suitOrder = ['♠', '♥', '♣', '♦'];
 const rankOrder = ["10", "A", "K", "Q", "J", "9", "8", "7"];
 
-const POLL_DELAY = 1000;
+const POLL_DELAY = 500;
 
 const $waitingText = document.querySelector(".waiting");
 const $hand = document.querySelector(".hand");
@@ -51,6 +51,7 @@ async function gameLoop() {
         next(state);
         playerInfo(state);
         showScore(state);
+        end(state);
     }
 
     setTimeout(gameLoop, POLL_DELAY);
@@ -193,6 +194,18 @@ function showScore(state) {
     </div><div>
         Other team score: ${(state.indexOfPlayer % 2) ? state.firstTeamPoints : state.secondTeamPoints }
     </div>`;
+}
+
+function end(state) {
+    if (state.gameState === 4) {
+        document.querySelector(".ending").classList.remove("hidden");
+        if ((state.indexOfPlayer % 2) && state.secondTeamPoints >= 101) {
+            document.querySelector(".you-won").classList.remove("hidden");
+        } else {
+            document.querySelector(".you-lost").classList.remove("hidden");
+        }
+        
+    }
 }
 
 gameLoop();
