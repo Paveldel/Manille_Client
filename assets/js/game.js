@@ -17,6 +17,7 @@ const playerId = localStorage.getItem("playerId");
 $waitingText.querySelector("div ~ div").innerText = `Game ID: ${gameId}`;
 
 document.querySelector(".trump-options").addEventListener('click', selectTrump);
+document.querySelector(".leave").addEventListener('click', leave);
 $hand.addEventListener('click', playCard);
 $next.addEventListener('click', nextTrick);
 
@@ -174,6 +175,12 @@ async function nextTrick(e) {
 
 function playerInfo(state) {
     $playerInfo.innerHTML = "You are playing as " + state.localPlayer;   
+}
+
+function leave() {
+    localStorage.removeItem("gameId");
+    localStorage.removeItem("playerId");
+    window.location.href = "/";
 }
 
 gameLoop();
