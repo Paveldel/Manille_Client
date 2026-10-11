@@ -20,10 +20,8 @@ async function createGame(e) {
             headers: postHeaders,
             body: JSON.stringify({username})
         });
-
-        console.log(res.status !== 201);
         
-        if (res.status !== 201) setError();
+        if (await res.status !== 201) return setError();
 
         const { gameId, playerId } = await res.json();
 
@@ -48,7 +46,7 @@ async function joinGame(e) {
             body: JSON.stringify({username})
         });
 
-        if (res.status !== 201) setError();
+        if (res.status !== 201) return setError();
 
         const { playerId } = await res.json();
 
@@ -63,7 +61,7 @@ function setError() {
 }
 
 function resetError() {
-    document.querySelector(".error").innerText = "Could not connect to server";
+    document.querySelector(".error").innerText = "";
 }
 
 function NavigateToGame(gameId, playerId) {
